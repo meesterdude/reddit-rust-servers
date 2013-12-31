@@ -540,7 +540,7 @@ tfoot .number_range_filter{
   width:40px;
 }
 
-section.table{padding: 0 20px;}
+section.table{padding: 0 20px;margin-bottom:200px;}
 #main_filter{padding-right: 30px;}
 
 body {
@@ -645,6 +645,12 @@ code {
   border-radius: 2px;
 }
 
+#main_paginate{
+  background-color:#73A714;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid #ccc;
+}
 pre {
   padding: 8px 15px;
   background: #191919;
