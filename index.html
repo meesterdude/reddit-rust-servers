@@ -68,7 +68,7 @@
      <script type="text/javascript">
     $(document).ready(function() {
 
-      headers = ["name", "ip", "post", "blurb", "Location", "Donations", "PVP", "slots", "Admin Powers", "Admins", "Sleepers", "Airdrop Min. Players", "Mini-Games", "site", "forum", "Server launched", "Entry updated"]
+      headers = ["name", "ip", "post", "About", "Location", "Donations", "PVP", "slots", "Admin Powers", "Admins", "Sleepers", "Airdrop Min. Players", "Mini-Games", "site", "forum", "Server launched", "Entry updated"]
       rows = new Array()
       $.getJSON("./servers.json?33", function(data){
         $.each(data.servers, function(i,server){
