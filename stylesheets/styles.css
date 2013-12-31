@@ -543,6 +543,9 @@ tfoot .number_range_filter{
 section.table{padding: 0 20px;margin-bottom:200px;}
 #main_filter{padding-right: 30px;}
 
+
+div#main_info.dataTables_info {font-size: 1.2em;}
+
 body {
   padding: 0px 0 20px 0px;
   margin: 0px;
