@@ -49,7 +49,7 @@
       </section>
     </div>
     <section class='table'>
-    <table cellpadding="0" cellspacing="0" border="0" class="display" id="main">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" class="display" id="main">
       <thead>
         <tr></tr>
       </thead>
@@ -69,6 +69,8 @@
     $(document).ready(function() {
 
       headers = ["name", "ip", "post", "About", "Location", "Donations", "PVP", "slots", "Admin Powers", "Admins", "Sleepers", "Airdrop Min. Players", "Mini-Games", "site", "forum", "Server launched", "Entry updated"]
+      hide_cols = ["About", "Donations", "Admins", "Server launched", "Entry updated",
+      "site", "forum", "Mini-Games", "Slots", "Sleepers", "Airdrop Min. Players"]
       rows = new Array()
       $.getJSON("./servers.json?33", function(data){
         $.each(data.servers, function(i,server){
@@ -94,7 +96,6 @@
         var oTable = $('#main').dataTable(
           {
             "sDom": 'RC<"clear">lfrtip',
-            "oColVis": {"activate": "mouseover"}
           }).columnFilter({
             //TODO: make part of headers
             aoColumns: [
@@ -117,9 +118,14 @@
               null
             ]
         });
+        // hack to hide columns
+        $("button.ColVis_MasterButton").trigger("click");
+        $('.ColVis_collection').hide();
+        $.each(hide_cols, function(i, col){
+          $("button.TableTools_Button:contains(" + col + ")").click();
+        });
+        $('.ColVis_collection').show();
       });
-       $.datepicker.regional[""].dateFormat = 'yy/mm/dd';
-        $.datepicker.setDefaults($.datepicker.regional['']);
     });
    </script>
 </html>
