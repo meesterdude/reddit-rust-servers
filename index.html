@@ -6,8 +6,21 @@
     <title>Reddit-rust-servers by meesterdude</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/jquery.dataTables.css">
+    <link rel="stylesheet" href="stylesheets/jquery.dataTables_themeroller.css">
+    <link rel="stylesheet" href="stylesheets/jquery-ui.css">
+    <link rel="stylesheet" href="stylesheets/ColVis.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
+    <script src="javascripts/jquery.js"></script>
+    <script src="javascripts/jquery.dataTables.js"></script>
+    <script src="javascripts/ColVis.min.js"></script>
+
+    <script src="javascripts/jquery.dataTables.columnFilter.js"></script>
+
+
+
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -15,7 +28,6 @@
     <link rel="stylesheet" href="stylesheets/ie.css">
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
   </head>
   <body>
       <div id="header">
@@ -41,9 +53,109 @@
         <h2>
 <a name="reddit-rust-servers" class="anchor" href="#reddit-rust-servers"><span class="octicon octicon-link"></span></a>reddit rust servers</h2>
       </section>
-
     </div>
+    <section class='table'>
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="main">
+      <thead>
+        <tr></tr>
+      </thead>
+      <tbody>
+        -
+      </tbody>
+        <tfoot>
+        <tr>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+
   </body>
+
+     <script type="text/javascript">
+    $(document).ready(function() {
+
+      headers = ["name", "ip", "post", "blurb", "Location", "Donations", "PVP", "slots", "Admin Powers", "Admins", "Sleepers", "Airdrop Min. Players", "Mini-Games", "site", "forum", "Server launched", "Entry updated"]
+      rows = new Array()
+      $.getJSON("./servers.json?33", function(data){
+        $.each(data.servers, function(i,server){
+          var row = []
+          $.each(headers, function(index, val){
+            row.push(server[val] || '-')
+          })
+          rows.push(row);
+        });
+        $.each(headers, function(i, header){
+          $('#main thead tr').append("<th>" + header + "</th>")
+          $('#main tfoot tr').append("<th>" + header + "</th>")
+        });
+        $.each(rows, function(i,row){
+          content_row = "<tr>"
+          $.each(row, function(pos,val){
+            content_row +="<td>" + val + "</td>"
+          });
+          content_row += "</tr>"
+          $('#main tbody').append(content_row);
+        });
+
+        var oTable = $('#main').dataTable(
+          {
+            "sDom": 'RC<"clear">lfrtip',
+            "oColVis": {"activate": "mouseover"}
+          }).columnFilter({
+            // custom mapped to the headers array
+            //TODO: make part of headers
+            aoColumns: [
+              {type: "text"},
+              {type: "text"},
+              {type: "text"},
+              {type: "text"},
+              {type: "select"},
+              {type: "select"},
+              {type: "select"},
+              {type: "number-range"},
+              {type: "select"},
+              {type: "text"},
+              {type: "select"},
+              {type: "number-range"},
+              {type: "select"},
+              {type: "text"},
+              {type: "text"},
+              null,
+              null
+            ]
+        });
+
+      });
+       $.datepicker.regional[""].dateFormat = 'yy/mm/dd';
+        $.datepicker.setDefaults($.datepicker.regional['']);
+    });
+   </script>
+  // <script type="text/javascript">
+  //   $(document).ready(function() {
+  //     rows = new Array()
+  //     $.getJSON("./servers.json?33", function(data){
+  //       $.each(data.servers, function(i,server){
+  //         var row = []
+  //         $.each(["type", "number", "site", "face"], function(index, val){
+  //           row.push(server[val] || '-')
+  //         })
+  //         rows.push(row);
+  //       });
+  //       $('#main').dataTable({
+  //         "sDom": 'C<"clear">lfrtip',
+  //         "oColVis": {
+  //           "activate": "mouseover"
+  //         },
+  //         "aaData": rows,
+  //         "aoColumns": [
+  //           {"sTitle": "type"},
+  //           {"sTitle": "number"},
+  //           {"sTitle": "site"},
+  //           {"sTitle": "face"}
+  //         ]
+  //       });
+  //     });
+  //   });
+  // </script>
 </html>
