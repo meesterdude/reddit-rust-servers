@@ -120,11 +120,9 @@
         });
         // hack to hide columns
         $("button.ColVis_MasterButton").trigger("click");
-        $('.ColVis_collection').hide();
         $.each(hide_cols, function(i, col){
           $("button.TableTools_Button:contains(" + col + ")").click();
         });
-        $('.ColVis_collection').show();
       });
     });
    </script>
