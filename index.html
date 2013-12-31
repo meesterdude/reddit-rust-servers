@@ -70,7 +70,7 @@
 
       headers = ["name", "ip", "post", "About", "Location", "Donations", "PVP", "slots", "Admin Powers", "Admins", "Sleepers", "Airdrop Min. Players", "Mini-Games", "site", "forum", "Server launched", "Entry updated"]
       hide_cols = ["About", "Donations", "Admins", "Server launched", "Entry updated",
-      "site", "forum", "Mini-Games", "Slots", "Sleepers", "Airdrop Min. Players"]
+      "site", "forum", "Mini-Games", "post"]
       rows = new Array()
       $.getJSON("./servers.json?33", function(data){
         $.each(data.servers, function(i,server){
