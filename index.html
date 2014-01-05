@@ -16,6 +16,7 @@
     <script src="javascripts/jquery.js"></script>
     <script src="javascripts/jquery.dataTables.js"></script>
     <script src="javascripts/ColVis.min.js"></script>
+    <script src="javascripts/underscore_strings.js"></script>
 
     <script src="javascripts/jquery.dataTables.columnFilter.js"></script>
 
@@ -69,9 +70,11 @@
      <script type="text/javascript">
     $(document).ready(function() {
 
-      headers = ["name", "ip", "post", "About", "Location", "Donations", "PVP", "slots", "Admin Powers", "Admins", "Sleepers", "Airdrop Min. Players", "Mini-Games", "site", "forum", "Server launched", "Entry updated"]
-      hide_cols = ["About", "Donations", "Admins", "Server launched", "Entry updated",
-      "site", "forum", "Mini-Games", "post"]
+
+      headers = ["name", "ip:port", "post", "about", "post-author", "location", "donations", "pvp", "beginner-friendly", "seeking-admins", "reddit-contact-user", "has-voice-server", "crafting-time-percent","slots", "admin-power-usage", "admin-usernames", "sleepers", "airdrop-min-players", "mini-games", "site", "forum", "server-launched", "entry-updated"]
+
+      hide_cols = ["about", "donations", "admin-usernames", "server-launched", "entry-updated",
+      "site", "forum", "mini-games", "post","reddit-contact-user", "has-voice-server", "seeking-admins"]
       rows = new Array()
       $.getJSON("./servers.json?33", function(data){
         $.each(data.servers, function(i,server){
@@ -82,12 +85,17 @@
           rows.push(row);
         });
         $.each(headers, function(i, header){
-          $('#main thead tr').append("<th>" + header + "</th>")
-          $('#main tfoot tr').append("<th>" + header + "</th>")
+          var human_header = _.str.humanize(header)
+          $('#main thead tr').append("<th>" + human_header + "</th>")
+          $('#main tfoot tr').append("<th>" + human_header + "</th>")
         });
         $.each(rows, function(i,row){
           content_row = "<tr>"
           $.each(row, function(pos,val){
+            if (_.str.startsWith(val, "http")) {
+              val = "<a href='" + val +"' title='" + val + "'>Visit</a>"
+            }
+
             content_row +="<td>" + val + "</td>"
           });
           content_row += "</tr>"
@@ -104,9 +112,15 @@
               {type: "text"},
               {type: "text"},
               {type: "text"},
+              {type: "text"},
               {type: "select"},
               {type: "select"},
               {type: "select"},
+              {type: "select"},
+              {type: "select"},
+              {type: "text"},
+              {type: "select"},
+              {type: "number-range"},
               {type: "number-range"},
               {type: "select"},
               {type: "text"},
@@ -122,7 +136,8 @@
         // hack to hide columns
         $("button.ColVis_MasterButton").trigger("click");
         $.each(hide_cols, function(i, col){
-          $("button.TableTools_Button:contains(" + col + ")").click();
+          $("button.TableTools_Button:contains(" + _.str.humanize(col) + ")").click();
+
         });
       });
     });
