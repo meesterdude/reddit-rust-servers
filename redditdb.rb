@@ -98,7 +98,7 @@ posts.each do |post|
     # add internal
     result_h['post'] = post['data']['url']
     result_h['post_author'] = "/u/" + post['data']['author']
-    sanitized_a << result_h.to_json
+    sanitized_a << result_h
   end
 end
 json = {
