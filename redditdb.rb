@@ -4,11 +4,8 @@ require 'JSON'
 require 'pry'
 require 'HTTParty'
 
-class Reddit
-  include HTTParty
-  base_uri 'reddit.com'
-  AGENT = "redditdb_bot/1.0 by ruru32"
-  SANITATIONS = {
+
+SANITATIONS = {
     "slots" => 0..300,
     "airdrop-min-players" => 0..300,
     "donations" => /^(yes|no)$/,
@@ -29,6 +26,13 @@ class Reddit
     "forum" => /^(http|https):\/\/.+$/,
     "admins-power-usage" => /^(not used|for good|for gameplay|at will)$/
   }
+
+
+class Reddit
+  include HTTParty
+  base_uri 'reddit.com'
+  AGENT = "redditdb_bot/1.0 by ruru32"
+
 
   def initialize(sub)
     @subreddit = sub
@@ -81,12 +85,14 @@ end
 r = Reddit.new('/r/playrustchanges')
 posts = r.fetch_posts('(JAD)')
 sanitized_a = Array.new
+
 posts.each do |post|
   result_h = r.parse_post(post)
   # do sanitations if it parsed
   unless result_h.nil?
     result_h.each do |k,v|
       k = k.downcase
+      next unless SANITATIONS.keys.include?(k) # skip any we don't sanitize
       result_h[k] = r.sanitize(k, v) || ""
     end
     # add internal
