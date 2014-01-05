@@ -1,0 +1,7 @@
+{
+  "generated": "2014-01-05",
+  "specification": 1,
+  "servers": [
+    "{\"name\":\"\",\"ip:port\":\"127.0.0.1:2323\",\"post\":\"http://www.reddit.com/r/playrustchanges/comments/1ug9x6/jad_1270014355/\",\"post_author\":\"/u/ruru32\",\"about\":\"\",\"location\":\"us\",\"donations\":\"yes\",\"pvp\":\"no\",\"beginner-friendly\":\"no\",\"seeking-admins\":\"no\",\"only-patch-wipes\":\"no\",\"reddit-contact-user\":\"\",\"has-voice-server\":\"no\",\"crafting-time\":\"0%\",\"slots\":\"\",\"admin-power-usage\":\"\",\"admin-users\":\"\",\"sleepers\":\"yes\",\"airdrop-min-players\":\"\",\"mini-games\":\"no\",\"site\":\"\",\"forum\":\"\",\"server-launched\":\"2014-01-05\",\"entry-updated\":\"\"}"
+  ]
+}
