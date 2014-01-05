@@ -4,17 +4,16 @@ require 'JSON'
 require 'pry'
 require 'HTTParty'
 
-
+# either numeric range or regex
 SANITATIONS = {
     "slots" => 0..300,
     "airdrop-min-players" => 0..300,
     "donations" => /^(yes|no)$/,
     "pvp" => /^(yes|no)$/,
-    "crafting-time" => /^\d{1,3}\W$/,
+    "crafting-time-percent" => 0..500,
     "sleepers" => /^(yes|no)$/,
     "has-voice-server" => /^(yes|no)$/,
     "beginner-friendly" => /^(yes|no)$/,
-    "only-patch-wipes" => /^(yes|no)$/,
     "reddit-contact-user" => /^\/u\/([a-z\d]+)$/i,
     "seeking-admins" => /^(yes|no)$/,
     "mini-games" =>  /^(yes|no)$/,
@@ -95,9 +94,10 @@ posts.each do |post|
       next unless SANITATIONS.keys.include?(k) # skip any we don't sanitize
       result_h[k] = r.sanitize(k, v) || ""
     end
-    # add internal
-    result_h['post'] = post['data']['url']
-    result_h['post_author'] = "/u/" + post['data']['author']
+    # add computed attributes
+    result_h['_post'] = post['data']['url']
+    result_h['_post_author'] = "/u/" + post['data']['author']
+    result_h['_ip_address'], result_h['_port']  = result_h['ip:port'].split(":")
     sanitized_a << result_h
   end
 end
