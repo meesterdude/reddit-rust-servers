@@ -5,28 +5,30 @@
     {
       "name": "row",
       "ip:port": "127.0.0.1:2323",
-      "post": "http://www.reddit.com/r/playrustchanges/comments/1ug9x6/jad_1270014355/",
-      "post_author": "/u/ruru32",
       "about": "i am a server",
       "location": "us",
       "donations": "yes",
       "pvp": "no",
       "beginner-friendly": "no",
       "seeking-admins": "no",
-      "only-patch-wipes": "no",
       "reddit-contact-user": "",
       "has-voice-server": "no",
-      "crafting-time": "0%",
+      "crafting-time-percent": "",
       "slots": "",
       "admin-power-usage": "for good",
-      "admin-users": "",
+      "admin-usernames": "",
       "sleepers": "yes",
       "airdrop-min-players": "",
       "mini-games": "no",
       "site": "",
       "forum": "",
       "server-launched": "2014-01-05",
-      "entry-updated": ""
+      "entry-updated": "",
+      "specification": "1",
+      "_post": "http://www.reddit.com/r/playrustchanges/comments/1ug9x6/jad_1270014355/",
+      "_post_author": "/u/ruru32",
+      "_ip_address": "127.0.0.1",
+      "_port": "2323"
     }
   ]
 }
