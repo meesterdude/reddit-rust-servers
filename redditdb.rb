@@ -81,7 +81,7 @@ end
 
 # begin the magic
 
-r = Reddit.new('/r/playrustchanges')
+r = Reddit.new('/r/playrustservers')
 posts = r.fetch_posts('(JAD)')
 sanitized_a = Array.new
 
