@@ -73,8 +73,7 @@
 
       headers = ["name", "ip:port", "_post", "about", "post-author", "location", "donations", "pvp", "beginner-friendly", "seeking-admins", "reddit-contact-user", "has-voice-server", "crafting-time-percent","slots", "admin-power-usage", "admin-usernames", "sleepers", "airdrop-min-players", "mini-games", "site", "forum", "server-launched", "entry-updated"]
 
-      hide_cols = ["about", "donations", "admin-usernames", "server-launched", "entry-updated",
-      "site", "forum", "mini-games", "_post","reddit-contact-user", "has-voice-server", "seeking-admins"]
+      hide_cols = ["about", "donations", "admin-usernames", "post-author", "server-launched", "entry-updated","site", "forum", "mini-games", "_post","reddit-contact-user", "has-voice-server", "seeking-admins", "airdrop-min-players"]
       rows = new Array()
       $.getJSON("./servers.json?33", function(data){
         $.each(data.servers, function(i,server){
