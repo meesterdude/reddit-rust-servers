@@ -23,7 +23,7 @@ SANITATIONS = {
     "entry-updated" => /^\d{4}-\d{2}-\d{2}$/,
     "site" => /^(http|https):\/\/.+$/,
     "forum" => /^(http|https):\/\/.+$/,
-    "admins-power-usage" => /^(not used|for good|for gameplay|at will)$/
+    "admin-power-usage" => /^(not used|for good|for gameplay|at will)$/
   }
 
 
@@ -57,8 +57,8 @@ class Reddit
       sanitizer = SANITATIONS[k]
       result = case sanitizer.class.to_s
       when "Range" # because range regexes are ugly
+        return false if v =~ /\D/
         sanitizer.cover?(v.to_i)
-        false if v =~ /\D/
       when "Regexp"
         true if v =~ sanitizer
       else
@@ -92,7 +92,7 @@ posts.each do |post|
     result_h.each do |k,v|
       k = k.downcase
       next unless SANITATIONS.keys.include?(k) # skip any we don't sanitize
-      result_h[k] = r.sanitize(k, v) || ""
+      result_h[k] = r.sanitize(k, v.strip) || ""
     end
     # add computed attributes
     result_h['_post'] = post['data']['url']
