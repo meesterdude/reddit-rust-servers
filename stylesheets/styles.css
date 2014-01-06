@@ -161,6 +161,14 @@ a:focus {
   outline: thin dotted;
 }
 
+#title p a {
+  color: #ddf;
+}
+
+#title p a:visited {
+  color: #aac;
+}
+
 /*
  * Improves readability when focused and also mouse hovered in all browsers
  * people.opera.com/patrickl/experiments/keyboard/test
