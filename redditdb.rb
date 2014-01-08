@@ -60,7 +60,15 @@ class Reddit
         return false if v =~ /\D/
         sanitizer.cover?(v.to_i)
       when "Regexp"
-        true if v =~ sanitizer
+        if v =~ sanitizer
+          true
+        elsif v.empty?
+          true
+        else
+          @@has_failures = true
+          puts "sanitize failed for #{k}. attribute was: #{v} "
+          false
+        end
       else
         false
       end
@@ -74,7 +82,8 @@ class Reddit
     begin
       JSON.parse("{" + extracted_json + "}")
     rescue JSON::ParserError
-      puts "parse failed: #{post['data']['permalink']}"
+      @@has_failures = true
+      puts "JSON parse failed"
     end
   end
 end
@@ -86,21 +95,27 @@ posts = r.fetch_posts('(JAD)')
 sanitized_a = Array.new
 
 posts.each do |post|
+  puts "------\n #{post['data']['url']}"
   result_h = r.parse_post(post)
   # do sanitations if it parsed
   unless result_h.nil?
+    @@has_failures = false
+
     result_h.each do |k,v|
       k = k.downcase
       next unless SANITATIONS.keys.include?(k) # skip any we don't sanitize
-      result_h[k] = r.sanitize(k, v.strip) || ""
+      result_h[k] = r.sanitize(k, v.strip.downcase) || ""
     end
+
     # add computed attributes
     result_h['_post'] = post['data']['url']
     result_h['_post_author'] = "/u/" + post['data']['author']
     result_h['_ip_address'], result_h['_port']  = result_h['ip:port'].split(":")
     sanitized_a << result_h
   end
+  puts "Please see /r/playrustservers/wiki/jad for formatting guidelines" if @@has_failures
 end
+puts "---------\nsucceeded:#{sanitized_a.size} failed:#{posts.count - sanitized_a.size} total: #{posts.count}"
 json = {
   "generated" => Date.today.to_s,
   "specification" => 1,
