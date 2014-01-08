@@ -109,8 +109,8 @@ posts.each do |post|
 
     # add computed attributes
     result_h['_post'] = post['data']['url']
-    result_h['_post_author'] = "/u/" + post['data']['author']
-    result_h['_ip_address'], result_h['_port']  = result_h['ip:port'].split(":")
+    result_h['_post-author'] = "/u/" + post['data']['author']
+    result_h['_ip-address'], result_h['_port']  = result_h['ip:port'].split(":")
     sanitized_a << result_h
   end
   puts "Please see /r/playrustservers/wiki/jad for formatting guidelines" if @@has_failures
